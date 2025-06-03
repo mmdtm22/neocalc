@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>دفترچه یادداشت مدرن</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css');
+
+  /* استفاده از فونت وزیر (یکی از بهترین فونت‌های فارسی مدرن) */
+  body {
+    font-family: 'Vazir', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    margin: 0; padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    color: #e0e0e0;
+  }
+
+  .container {
+    background: #1e2a38dd;
+    border-radius: 20px;
+    padding: 30px 40px 40px 40px;
+    margin: 40px 20px;
+    max-width: 480px;
+    width: 100%;
+    box-shadow:
+      0 4px 8px rgba(255 255 255 / 0.05),
+      0 10px 20px rgba(0 0 0 / 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  h1 {
+    text-align: center;
+    font-weight: 900;
+    font-size: 3rem;
+    margin-bottom: 25px;
+    color: #00ffe7;
+    text-shadow:
+      0 0 6px #00ffe7,
+      0 0 15px #00ffe7cc;
+  }
+
+  .input-group {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+
+  input[type="text"] {
+    flex-grow: 1;
+    border-radius: 15px;
+    border: none;
+    padding: 14px 18px;
+    font-size: 1.5rem;
+    background: #14212cdd;
+    color: #d3f8ff;
+    box-shadow:
+      inset 2px 2px 8px #0c151e,
+      inset -2px -2px 8px #1f2f3d;
+    transition: background 0.3s ease, color 0.3s ease;
+    font-family: 'Vazir', Tahoma, sans-serif;
+  }
+
+  input[type="text"]::placeholder {
+    color: #66c3ffcc;
+    font-weight: 400;
+  }
+
+  input[type="text"]:focus {
+    outline: none;
+    background: #0a141f;
+    color: #00fff0;
+    box-shadow:
+      0 0 12px #00ffe7,
+      inset 2px 2px 8px #00ffe7aa;
+  }
+
+  button.add-btn {
+    background: #00ffe7;
+    border: none;
+    border-radius: 15px;
+    padding: 0 30px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    cursor: pointer;
+    color: #051d25;
+    box-shadow:
+      0 0 10px #00ffe7,
+      0 0 20px #00ffe7cc;
+    transition: background 0.3s ease, color 0.3s ease;
+    font-family: 'Vazir', Tahoma, sans-serif;
+  }
+
+  button.add-btn:hover {
+    background: #00ccaf;
+    color: #d7fff8;
+  }
+
+  ul.notes-list {
+    list-style: none;
+    padding: 0;
+    max-height: 400px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #00ffe7 transparent;
+  }
+
+  ul.notes-list::-webkit-scrollbar {
+    width: 9px;
+  }
+
+  ul.notes-list::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ul.notes-list::-webkit-scrollbar-thumb {
+    background-color: #00ffe7;
+    border-radius: 20px;
+  }
+
+  li.note-item {
+    background: #142733;
+    margin-bottom: 18px;
+    border-radius: 20px;
+    padding: 20px 25px;
+    font-size: 1.6rem;
+    color: #00ffe7;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow:
+      0 4px 10px #00ffe7aa;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+
+  li.note-item:hover {
+    background: #0a1e24;
+    transform: scale(1.03);
+  }
+
+  button.delete-btn {
+    background: #ff0033;
+    border: none;
+    border-radius: 12px;
+    padding: 9px 18px;
+    font-weight: 700;
+    cursor: pointer;
+    color: #fff;
+    box-shadow:
+      0 3px 10px #ff0033cc;
+    transition: background 0.3s ease;
+    font-family: 'Vazir', Tahoma, sans-serif;
+  }
+
+  button.delete-btn:hover {
+    background: #b20026;
+  }
+
+  /* Responsive */
+  @media (max-width: 520px) {
+    .container {
+      padding: 25px 25px 35px 25px;
+      margin: 25px 15px;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+    }
+
+    input[type="text"] {
+      font-size: 1.3rem;
+      padding: 12px 15px;
+    }
+
+    button.add-btn {
+      padding: 0 22px;
+      font-size: 1.2rem;
+    }
+
+    li.note-item {
+      font-size: 1.3rem;
+      padding: 16px 20px;
+    }
+
+    button.delete-btn {
+      padding: 8px 16px;
+      font-size: 1.2rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>دفترچه یادداشت مدرن</h1>
+
+  <div class="input-group">
+    <input type="text" id="noteInput" placeholder="متن یادداشت جدید..." />
+    <button class="add-btn" onclick="addNote()">افزودن</button>
+  </div>
+
+  <ul class="notes-list" id="notesList"></ul>
+</div>
+
+<script>
+  const notesList = document.getElementById('notesList');
+  const noteInput = document.getElementById('noteInput');
+
+  let notes = JSON.parse(localStorage.getItem('notes')) || [];
+
+  function saveNotes() {
+    localStorage.setItem('notes', JSON.stringify(notes));
+  }
+
+  function renderNotes() {
+    notesList.innerHTML = '';
+    notes.forEach((note, index) => {
+      const li = document.createElement('li');
+      li.className = 'note-item';
+      li.textContent = note;
+
+      const delBtn = document.createElement('button');
+      delBtn.className = 'delete-btn';
+      delBtn.textContent = 'حذف';
+      delBtn.onclick = () => {
+        notes.splice(index, 1);
+        saveNotes();
+        renderNotes();
+      };
+
+      li.appendChild(delBtn);
+      notesList.appendChild(li);
+    });
+  }
+
+  function addNote() {
+    const text = noteInput.value.trim();
+    if(text) {
+      notes.push(text);
+      noteInput.value = '';
+      saveNotes();
+      renderNotes();
+    }
+  }
+
+  renderNotes();
+</script>
+
+</body>
+</html>
